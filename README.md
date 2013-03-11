@@ -16,22 +16,22 @@ The address of the txt file that contains the image and its description
 Format
 
     [image1 file name] [description1]
-	    [image2 file name] [description2]
-		    ...
-			    
-				    example:
-					    mg1.JPG SomeDescription
-						    mg2.JPG SomeDescription
-							(This version might not be able to handle the description that contains whitespace)
+	[image2 file name] [description2]
+    ...
+		    
+    example:
+    mg1.JPG SomeDescription
+    mg2.JPG SomeDescription
+(This version might not be able to handle the description that contains whitespace)
 
-							###numLoadingImg###
-							The number will be loaded into the element of the site
-							-1 means all image in the folder will be loaded
-							(Default option:-1)
+###numLoadingImg###
+The number of images will be loaded into the element of the site
+-1 means all image in the folder will be loaded
+(Default option:-1)
 
-							###imgInitialHeight###
-							The initial height of the image before resize
-							Larger height means lesser images per row
+###imgInitialHeight###
+The initial height of the image before resize
+Larger height means lesser images per row
 
-							###animateSpeed###
-							Speed of the animate
+###animateSpeed###
+Speed of the animate
