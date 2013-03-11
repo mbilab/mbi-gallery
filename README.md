@@ -1,4 +1,3 @@
-#MBI-Gallery jQuery Plugin#
 #MBI-Gallery jquery Plugin#
 ##Features##
 What this plugin can do is:
