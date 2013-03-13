@@ -1,12 +1,13 @@
-#MBI-Gallery jquery Plugin#
-##Features##
+# MBI-Gallery jquery Plugin
+## Features
+
 What this plugin can do is:
 
-* Auto fetch for images in a given folder and insert them into the given element
-* Resize the images to fit in the element when image loading or window resizing
-* Enable simple animation with image descriptions with a given txt file
+ * Auto fetch for images in a given folder and insert them into the given element
+ * Resize the images to fit in the element when image loading or window resizing
+ * Enable simple animation with image descriptions from the given txt file
 
-##Options##
+## Options
 
 ###photoFolderUrl###
 The address of the folder containing the images been put in the div 
