@@ -53,11 +53,13 @@
 				var rowImageCount=0;
 				var front=0;
 				var divSize=$el.find("ul").width();
+				var gap=$('ul li').outerWidth(true)-$('ul li').width();
+				console.log(gap);
 				$el.find("ul li").each(function(i){
 					rowWidth+=(($(this).width())*(opt.imgInitialHeight)/($(this).height()));
 					rowImageCount++;
-					if(rowWidth+(rowImageCount)*5>=divSize){
-						resizeHeight=opt.imgInitialHeight*(divSize-((rowImageCount+1)*5))/(rowWidth);
+					if(rowWidth+(rowImageCount)*gap>=divSize){
+						resizeHeight=opt.imgInitialHeight*(divSize-((rowImageCount+1)*gap))/(rowWidth);
 						for(var j=front;j<=i;j++){
 							$el.find("ul li:nth-child("+(j+1)+")").height(resizeHeight);
 						}
