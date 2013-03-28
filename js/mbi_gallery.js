@@ -54,7 +54,6 @@
 				var front=0;
 				var divSize=$el.find("ul").width();
 				var gap=$('ul li').outerWidth(true)-$('ul li').width();
-				console.log(gap);
 				$el.find("ul li").each(function(i){
 					rowWidth+=(($(this).width())*(opt.imgInitialHeight)/($(this).height()));
 					rowImageCount++;
