@@ -33,7 +33,7 @@ The number of images will be loaded into the element of the site
 
 ###imgInitialHeight###
 The initial height of the image before resize
-Larger height means lesser images per row
+Larger height means less images per row
 
 ###animateSpeed###
 Speed of the animate
