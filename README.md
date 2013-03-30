@@ -13,17 +13,17 @@ What this plugin can do is:
 The address of the folder containing the images been put in the div 
 ###descriptionUrl###
 The address of the txt file that contains the image and its description
+###separator###(Default:'\t')[Tab]
+The symbol used to separate the file name and the description or two descriptions
+Description file Format
 
-Format
-
-    [image1 file name] [description1]
-	[image2 file name] [description2]
+    [image1 file name][separator][description1][separator][description2]
+	[image2 file name][separator][description1][separator][description2]
     ...
 		    
-    example:
-    mg1.JPG SomeDescription
-    mg2.JPG SomeDescription
-(This version might not be able to handle the description that contains whitespace)
+    example:(with default option of separator)
+    mg1.JPG	SomeDescription	Another Description
+    mg2.JPG	SomeDescription
 
 ###numLoadingImg###
 The number of images will be loaded into the element of the site
