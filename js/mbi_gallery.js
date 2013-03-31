@@ -1,3 +1,7 @@
+/*
+ * mbi-gallery - jQuery Plugin
+ * Version 1.0.0
+ * */
 ;(function($,undefined){
 	var plugin='mbi_gallery';//pluginname
 	$.fn[plugin]=function(opt){//set jquery plugin

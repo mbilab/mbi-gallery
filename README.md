@@ -7,6 +7,10 @@ What this plugin can do is:
  * Resize the images to fit in the element when image loading or window resizing
  * Enable simple animation with image descriptions from the given txt file
 
+## Usage
+
+	$('#mydiv').mbi_gallery(options);
+
 ## Options
 
 ###photoFolderUrl###
