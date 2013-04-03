@@ -102,9 +102,11 @@
 		});//end of return this.each
 	};
 	$.fn[plugin].dft={
-		numLoadingImg:-1,
-		separator:'\t',
 		stage:1,
+		separator:'\t',
+		numLoadingImg:-1,
+		imgInitialHeight:300,	
+		animateSpeed:'fast'
 	};
 })(jQuery);
 // vi:nowrap:sw=4:ts=4
