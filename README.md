@@ -18,10 +18,10 @@ What this plugin can do is:
 
 	ex.   
 	$('#mydiv').mbi_gallery({  
-		stage:1,  
-		photoFolderUrl:"../demophotos/",  
-		descriptionUrl:"../des.txt",  
-		imgInitialHeight:"300"  
+			stage:1,  
+			photoFolderUrl:"../demophotos/",  
+			descriptionUrl:"../des.txt",  
+			imgInitialHeight:"300"  
 	});  
 
 3.	Run the site, and after loading, there would be a 'export' on top of the target element.
@@ -33,8 +33,8 @@ What this plugin can do is:
 
 	ex.  
 	$('#mydiv').mbi_gallery({  
-		stage:2,  
-		...//other options  
+			stage:2,  
+			...//other options  
 	});  
 
 2.	Replace the original html file(in stage 1) with this one.
