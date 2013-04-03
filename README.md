@@ -23,6 +23,7 @@ What this plugin can do is:
 3.	Run the site, and after loading, there would be a 'export' on top of the target element.
 4.	Click the 'export', and it will have a new tag (or window) on the browser with some html code.
 5.	Download that file, and save it as html file
+
 ###Stage 2:Operate(Animating and Resizing)###
 1.	Modify the downloaded html file(or other .js that call this plugin)'s option stage to 2
 	  ex.
