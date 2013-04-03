@@ -1,3 +1,15 @@
+/**
+ * @summary     mbi-gallery
+ * @description Gallery
+ * @version     0.0.1
+ * @file        jquery.mbi-gallery.js
+ * @author      xxx
+ * @contact     xxx
+ * 
+ * @copyright Copyright 2013 MBI Lab, all rights reserved.
+ * 
+ * For details please refer to: https://github.com/mbilab/mbi-gallery
+ */
 ;(function($,undefined){
 	var plugin='mbi_gallery';//pluginname
 	$.fn[plugin]=function(opt){//set jquery plugin
@@ -31,7 +43,7 @@
 									type:'GET',
 									url: opt.photoFolderUrl+r[i],
 									success: function(data){
-										k=(this.url).match(/\/\w+\.(jpg|png)/gi)[0].substring(1);
+										k=(this.url).match(/[^\/]+$/i)[0];
 										count++;
 										if(o.indexOf(k)!=-1){
 											html="<li class=\" mbi_gallery_animateLi\" style=\"height:"+opt.imgInitialHeight+"px\"><div class=\"mbi_gallery_imageDescription\"><div class=\"mbi_gallery_des1\">"+n[o.indexOf(k)][1]+"</div>";
@@ -43,7 +55,7 @@
 										if(count%20==0)/*resize()*/;
 										if(count==end){
 											$el.prepend("<div id=\'mbi-export\'>export</div>");
-											/*resize();
+											resize();/*
 											setTimeout(function(){resize();},1000);
 											setTimeout(function(){resize();},2000);
 											setTimeout(function(){resize();},3000);*/
