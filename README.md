@@ -16,13 +16,13 @@ What this plugin can do is:
 
 2.	Set the option "stage" to 1, and fill in other options. 
 
-	ex. 
-	$('#mydiv').mbi_gallery({
-		stage:1,
-		photoFolderUrl:"../demophotos/",
-		descriptionUrl:"../des.txt",
-		imgInitialHeight:"300"
-	});
+	ex.   
+	$('#mydiv').mbi_gallery({  
+		stage:1,  
+		photoFolderUrl:"../demophotos/",  
+		descriptionUrl:"../des.txt",  
+		imgInitialHeight:"300"  
+	});  
 
 3.	Run the site, and after loading, there would be a 'export' on top of the target element.
 4.	Click the 'export', and it will have a new tag (or window) on the browser with some html code.
@@ -31,11 +31,11 @@ What this plugin can do is:
 ###Stage 2:Operate(Animating and Resizing)###
 1.	Modify the downloaded html file(or other .js that call this plugin)'s option stage to 2
 
-	ex.
-	$('#mydiv').mbi_gallery({
-		stage:2,
-		...//other options
-	});
+	ex.  
+	$('#mydiv').mbi_gallery({  
+		stage:2,  
+		...//other options  
+	});  
 
 2.	Replace the original html file(in stage 1) with this one.
 3.	Complete!
