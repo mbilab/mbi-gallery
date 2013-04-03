@@ -42,14 +42,14 @@ What this plugin can do is:
 
 ## Options
 ###stage###
-(Default:1)
+(Default:1)  
 Indicate the operation of this plugin. Take a look at Usage for more information.
 ###photoFolderUrl###
 The address of the folder containing the images been put in the div 
 ###descriptionUrl###
 The address of the txt file that contains the image and its description
 ###separator###
-(Default:'\t')[Tab]
+(Default:'\t')[Tab]  
 The symbol used to separate the file name and the description or two descriptions
 Description file Format
 
@@ -62,16 +62,16 @@ Description file Format
      mg2.JPG	SomeDescription
 
 ###numLoadingImg###
-(Default option:-1)
+(Default option:-1)  
 The number of images will be loaded into the element of the site
 -1 means all image in the folder will be loaded
 
 ###imgInitialHeight###
-(Default option:300)
-(Unit:px)
+(Default option:300)  
+(Unit:px)  
 The initial height of the image before resize
 Larger height means less images per row
 
 ###animateSpeed###
-(Default option:'fast')
+(Default option:'fast')  
 Speed of the animate
