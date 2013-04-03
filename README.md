@@ -10,9 +10,11 @@ What this plugin can do is:
 ## Usage
 ###Stage 1:Generating html from img folder and description file###
 1.	Call the plugin with the target element you want to insert.
+
 	  ex. 
 	  $('#mydiv').mbi_gallery(//options);
 2.	Set the option "stage" to 1, and fill in other options. 
+
 	  ex. 
 	  $('#mydiv').mbi_gallery({
 	      stage:1,
@@ -26,6 +28,7 @@ What this plugin can do is:
 
 ###Stage 2:Operate(Animating and Resizing)###
 1.	Modify the downloaded html file(or other .js that call this plugin)'s option stage to 2
+
 	  ex.
 	  $('#mydiv').mbi_gallery({
 	      stage:2,
