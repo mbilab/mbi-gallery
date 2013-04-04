@@ -11,7 +11,7 @@
  * For details please refer to: https://github.com/mbilab/mbi-gallery
  */
 ;(function($,undefined){
-	var plugin='mbi_gallery';//pluginname
+	var plugin='mbi-gallery';//pluginname
 	$.fn[plugin]=function(opt){//set jquery plugin
 		var opt=$.extend({},$.fn[plugin].dft,opt);//option
 		return this.each(function(){

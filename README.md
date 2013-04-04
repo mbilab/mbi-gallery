@@ -12,12 +12,12 @@ What this plugin can do is:
 1.	Call the plugin with the target element you want to insert.
 
 		ex. 
-		$('#mydiv').mbi_gallery(//options);
+		$('#mydiv').mbi-gallery(//options);
 
 2.	Set the option "stage" to 1, and fill in other options. 
 
 		ex.   
-		$('#mydiv').mbi_gallery({  
+		$('#mydiv').mbi-gallery({  
 			stage:1,  
 			photoFolderUrl:"../demophotos/",  
 			descriptionUrl:"../des.txt",  
