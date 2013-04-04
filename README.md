@@ -42,7 +42,7 @@ What this plugin can do is:
 
 ## Options
 ###stage###
-(Default:1)  
+(Default:2)  
 Indicate the operation of this plugin. Take a look at Usage for more information.
 ###photoFolderUrl###
 The address of the folder containing the images been put in the div 

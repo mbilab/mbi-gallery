@@ -114,7 +114,7 @@
 		});//end of return this.each
 	};
 	$.fn[plugin].dft={
-		stage:1,
+		stage:2,
 		separator:'\t',
 		numLoadingImg:-1,
 		imgInitialHeight:300,	
