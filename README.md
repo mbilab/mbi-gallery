@@ -8,7 +8,14 @@ What this plugin can do is:
  * Enable simple animation with image descriptions from the given txt file
 
 ## Usage
-###Stage 1:Generating html from img folder and description file###
+###Normal Usage###
+Call the plugin with the target element you want to insert.
+And you don't have to set the option stage to any value.
+	ex.
+	$('#mydiv').mbi-gallery(//options);
+
+###Special Usagei(Two stages)###
+####Stage 1:Generating html from img folder and description file####
 1.	Call the plugin with the target element you want to insert.
 
 		ex. 
@@ -28,7 +35,7 @@ What this plugin can do is:
 4.	Click the 'export', and it will have a new tag (or window) on the browser with some html code.
 5.	Download that file, and save it as html file
 
-###Stage 2:Operate(Animating and Resizing)###
+####Stage 2:Operate(Animating and Resizing)####
 1.	Modify the downloaded html file(or other .js that call this plugin)'s option stage to 2
 
 		ex.  

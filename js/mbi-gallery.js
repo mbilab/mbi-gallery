@@ -17,7 +17,7 @@
 		return this.each(function(){
 			var $el=$(this);
 			//grab data and insert image
-			if(opt.stage==1){
+			if(opt.stage==1||$el.html()==''){
 				$.ajax({//get description
 					type: "GET",
 					url: opt.descriptionUrl,
@@ -46,19 +46,21 @@
 										k=(this.url).match(/[^\/]+$/i)[0];
 										count++;
 										if(o.indexOf(k)!=-1){
-											html="<li class=\" mbi_gallery_animateLi\" style=\"height:"+opt.imgInitialHeight+"px\"><div class=\"mbi_gallery_imageDescription\"><div class=\"mbi_gallery_des1\">"+n[o.indexOf(k)][1]+"</div>";
+											html="<li class=\" mbi_gallery_animateLi\"><div class=\"mbi_gallery_imageDescription\"><div class=\"mbi_gallery_des1\">"+n[o.indexOf(k)][1]+"</div>";
 											if(n[o.indexOf(k)].length>2)for(var j=2;j<n[o.indexOf(k)].length;j++)html+="<div class=\"mbi_gallery_des"+j+"\">"+n[o.indexOf(k)][j]+"</div>";
-											html+="</div><img class=\"mbi_gallery_moveInImage\" src=\""+this.url+"\"/></li>";
+											html+="</div><img class=\"mbi_gallery_moveInImage\" src=\""+this.url+"\" style=\"height:"+opt.imgInitialHeight+"px\"/></li>";
 											$ul.append(html);
 										}	
-										else $ul.append("<li style=\"height:"+opt.imgInitialHeight+"px\"><img src=\""+this.url+"\"/></li>");
-										if(count%20==0)/*resize()*/;
+										else $ul.append("<li><img src=\""+this.url+"\"/ style=\"height:"+opt.imgInitialHeight+"px\"></li>");
+										if(opt.stage!=1&&count%20==0)resize();
 										if(count==end){
-											$el.prepend("<div id=\'mbi-export\'>export</div>");
-											resize();/*
-											setTimeout(function(){resize();},1000);
-											setTimeout(function(){resize();},2000);
-											setTimeout(function(){resize();},3000);*/
+											if(opt.stage==1)$el.prepend("<div id=\'mbi-export\'>export</div>");
+											else{
+												resize();
+												setTimeout(function(){resize();},1000);
+												setTimeout(function(){resize();},2000);
+												setTimeout(function(){resize();},3000);
+											}
 										}	
 									}
 								});
@@ -72,8 +74,7 @@
 				});
 			}
 			//animate process
-			else{
-			    $('#mbi-export').css('display','none');
+			if(opt.stage!=1){
 				$el.on('mouseenter','.mbi_gallery_animateLi',function(){
 					$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'0'},'fast');
 				});
@@ -102,7 +103,7 @@
 						resizeHeight=opt.imgInitialHeight*(divSize-((rowImageCount+1)*gap))/(rowWidth);
 						if(Math.abs(resizeHeight-$el.find("ul li:nth-child("+(front+1)+")").height())>2){
 							for(var j=front;j<=i;j++){
-								$el.find("ul li:nth-child("+(j+1)+")").height(resizeHeight);
+								$el.find("ul li:nth-child("+(j+1)+") img").height(resizeHeight);
 							}
 						}
 						front=i+1;
