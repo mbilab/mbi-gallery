@@ -1,35 +1,35 @@
 /**
  * @summary     mbi-gallery
  * @description Gallery
- * @version     0.0.1
- * @file        jquery.mbi-gallery.js
+ * @version     0.1.1
+ * @file        jquery.mbi_gallery.js
  * @author      xxx
  * @contact     xxx
  * 
  * @copyright Copyright 2013 MBI Lab, all rights reserved.
  * 
  * For details please refer to: https://github.com/mbilab/mbi-gallery
- */
+*/
 ;(function($,undefined){
-	var plugin='mbi-gallery';//pluginname
+	var plugin='mbi_gallery';//pluginname
 	$.fn[plugin]=function(opt){//set jquery plugin
 		var opt=$.extend({},$.fn[plugin].dft,opt);//option
 		return this.each(function(){
 			var $el=$(this);
 			//grab data and insert image
-			if(opt.stage==1||$el.html()==''){
+			if(opt.stage==1||$el.html()==''){//first stage or empty $el  do ajax
 				$.ajax({//get description
 					type: "GET",
 					url: opt.descriptionUrl,
 					success: function(re){
 						var str=re;
-						n=str.split("\n");
+						n=str.split("\n");//split for img
 						var o=new Array();
 						for(var i=0;i<n.length;i++){
-							n[i]=n[i].split(opt.separator);
-							o[i]=n[i][0];
+							n[i]=n[i].split(opt.separator);//split for file name and des
+							o[i]=n[i][0];//get file name
 						}
-						$.get(opt.photoFolderUrl, function(re){//get images 
+						$.get(opt.photoFolderUrl, function(re){//get address of images 
 							var str=re;
 							$el.append('<ul></ul>');
 							var html="";
@@ -39,11 +39,11 @@
 							var count=0;
 							for(var i=0;i<r.length;i++)r[i]=r[i].match(/"(.*?)"/gi)[0].replace(/"/g,"");
 							for(var i=0;i<end;i++){
-								$.ajax({
+								$.ajax({//ajax loading img
 									type:'GET',
 									url: opt.photoFolderUrl+r[i],
 									success: function(data){
-										k=(this.url).match(/[^\/]+$/i)[0];
+										k=(this.url).match(/[^\/]+$/i)[0];//get file name
 										count++;
 										if(o.indexOf(k)!=-1){
 											html="<li class=\" mbi_gallery_animateLi\"><div class=\"mbi_gallery_imageDescription\"><div class=\"mbi_gallery_des1\">"+n[o.indexOf(k)][1]+"</div>";
@@ -60,6 +60,7 @@
 												setTimeout(function(){resize();},1000);
 												setTimeout(function(){resize();},2000);
 												setTimeout(function(){resize();},3000);
+												//delay resizing for img loading time
 											}
 										}	
 									}
@@ -68,7 +69,7 @@
 						});
 					}
 				});
-				$el.on('click','#mbi-export',function(){
+				$el.on('click','#mbi-export',function(){//export html
 					uriContent = "data:text/plain,"+encodeURIComponent("<html>"+$('html').html())+"</html>";
 					newWindow=window.open(uriContent, 'neuesDokument');
 				});
@@ -87,6 +88,10 @@
 				});
 				window.onload=resize();
 				$('img').load(function(){resize();});
+				setTimeout(function(){resize();},1000);
+				setTimeout(function(){resize();},2000);
+				setTimeout(function(){resize();},3000);
+
 			}
 			//resize function
 			function resize(){
