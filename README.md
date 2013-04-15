@@ -12,19 +12,19 @@ What this plugin can do is:
 Call the plugin with the target element you want to insert.
 And you don't have to set the option stage to any value.
 	ex.
-	$('#mydiv').mbi-gallery(//options);
+	$('#mydiv').mbi_gallery(//options);
 
 ###Special Usagei(Two stages)###
 ####Stage 1:Generating html from img folder and description file####
 1.	Call the plugin with the target element you want to insert.
 
 		ex. 
-		$('#mydiv').mbi-gallery(//options);
+		$('#mydiv').mbi_gallery(//options);
 
 2.	Set the option "stage" to 1, and fill in other options. 
 
 		ex.   
-		$('#mydiv').mbi-gallery({  
+		$('#mydiv').mbi_gallery({  
 			stage:1,  
 			photoFolderUrl:"../demophotos/",  
 			descriptionUrl:"../des.txt",  
