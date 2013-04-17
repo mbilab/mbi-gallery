@@ -3,8 +3,8 @@
  * @description Gallery
  * @version     0.1.1
  * @file        jquery.mbi_gallery.js
- * @author      //! add something here
- * @contact     //! add something here
+ * @author      Tangent Chang and Tien-Hao Chang (Darby Chang)
+ * @contact     darby@mail.ncku.edu.tw
  * 
  * @copyright Copyright 2013 MBI Lab, all rights reserved.
  * 
@@ -18,15 +18,16 @@
 			var $el=$(this);
 			//grab data and insert image
 			//!reduce indent
-			if(1===opt.stage||''===$el.html()){//first stage or empty $el do ajax //!
+			if(1===opt.stage||''===$el.html()){//first stage or empty $el do ajax
 				$.ajax({//get description //! why ajax()?
 					type:'GET',//!single or double quote?
-					url:opt.descriptionUrl,//!naming strategy
+					url:opt.descriptionUrl,
 					success:function(desc){
 						var tmp=desc.match(/^([^#\n\r].*)/gm).map(function(i){return i.split(opt.separator)});
 						desc={};for(var i=0;i<tmp.length;++i)(desc[tmp[i][0]]=tmp[i]).splice(0,1);
 						$.get(opt.photoFolderUrl,function(img){//get img href //! why get()?
 							img=img.match(/href=".*?\.(jpg|png)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
+//							var $ul=$('<ul/>').appendTo($el);
 							$el.append('<ul></ul>');
 							var $ul=$el.find('ul');
 							var end=(-1===opt.numLoadingImg||img.length<opt.numLoadingImg)?img.length:opt.numLoadingImg;
