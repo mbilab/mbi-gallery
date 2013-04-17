@@ -3,8 +3,8 @@
  * @description Gallery
  * @version     0.1.1
  * @file        jquery.mbi_gallery.js
- * @author      xxx
- * @contact     xxx
+ * @author      //! add something here
+ * @contact     //! add something here
  * 
  * @copyright Copyright 2013 MBI Lab, all rights reserved.
  * 
@@ -17,50 +17,44 @@
 		return this.each(function(){
 			var $el=$(this);
 			//grab data and insert image
-			if(opt.stage==1||$el.html()==''){//first stage or empty $el  do ajax
-				$.ajax({//get description
-					type: "GET",
-					url: opt.descriptionUrl,
-					success: function(re){
-						var str=re;
-						n=str.split("\n");//split for img
-						var o=new Array();
-						for(var i=0;i<n.length;i++){
-							n[i]=n[i].split(opt.separator);//split for file name and des
-							o[i]=n[i][0];//get file name
-						}
-						$.get(opt.photoFolderUrl, function(re){//get address of images 
-							var str=re;
+			//!reduce indent
+			if(1===opt.stage||''===$el.html()){//first stage or empty $el do ajax //!
+				$.ajax({//get description //! why ajax()?
+					type:'GET',//!single or double quote?
+					url:opt.descriptionUrl,//!naming strategy
+					success:function(desc){
+						var tmp=desc.match(/^([^#\n\r].*)/gm).map(function(i){return i.split(opt.separator)});
+						desc={};for(var i=0;i<tmp.length;++i)(desc[tmp[i][0]]=tmp[i]).splice(0,1);
+						$.get(opt.photoFolderUrl,function(img){//get img href //! why get()?
+							img=img.match(/href=".*?\.(jpg|png)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
 							$el.append('<ul></ul>');
-							var html="";
 							var $ul=$el.find('ul');
-							var r=str.match(/href="(.*?\.(jpg|png))"/gi);
-							var end=(opt.numLoadingImg==-1||r.length<opt.numLoadingImg)?r.length:opt.numLoadingImg;
+							var end=(-1===opt.numLoadingImg||img.length<opt.numLoadingImg)?img.length:opt.numLoadingImg;
+							end=2;
 							var count=0;
-							for(var i=0;i<r.length;i++)r[i]=r[i].match(/"(.*?)"/gi)[0].replace(/"/g,"");
 							for(var i=0;i<end;i++){
-								$.ajax({//ajax loading img
+								$.ajax({//ajax loading img //! why ajax()?
 									type:'GET',
-									url: opt.photoFolderUrl+r[i],
-									success: function(data){
-										k=(this.url).match(/[^\/]+$/i)[0];//get file name
+									url:opt.photoFolderUrl+img[i],
+									success:function(data){
+										var fn=(this.url).match(/[^\/]+$/i)[0];//!better than comment
 										count++;
-										if(o.indexOf(k)!=-1){
-											html="<li class=\" mbi_gallery_animateLi\"><div class=\"mbi_gallery_imageDescription\"><div class=\"mbi_gallery_des1\">"+n[o.indexOf(k)][1]+"</div>";
-											if(n[o.indexOf(k)].length>2)for(var j=2;j<n[o.indexOf(k)].length;j++)html+="<div class=\"mbi_gallery_des"+j+"\">"+n[o.indexOf(k)][j]+"</div>";
-											html+="</div><img class=\"mbi_gallery_moveInImage\" src=\""+this.url+"\" style=\"height:"+opt.imgInitialHeight+"px\"/></li>";
+										if(desc[fn]){//!hash instaead of array
+											//!why need a further if?
+											html='<li class="mbi_gallery_animateLi"><div class="mbi_gallery_imageDescription"><div class="mbi_gallery_des0">'+desc[fn][0]+'</div>';
+											if(desc[fn].length>1)for(var j=1;j<desc[fn].length;j++)html+='<div class="mbi_gallery_des'+j+'">'+desc[fn][j]+'</div>';
+											html+='</div><img class="mbi_gallery_moveInImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></li>';
 											$ul.append(html);
-										}	
-										else $ul.append("<li><img src=\""+this.url+"\"/ style=\"height:"+opt.imgInitialHeight+"px\"></li>");
-										if(opt.stage!=1&&count%20==0)resize();
+										}else $ul.append('<li><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></li>');
+										if(opt.stage!=1&&count%20==0)resize();//! 20 should be a opt
 										if(count==end){
-											if(opt.stage==1)$el.prepend("<div id=\'mbi-export\'>export</div>");
+											if(opt.stage==1)$el.prepend("<div id=\'mbi-export\'>export</div>");//!discuss
 											else{
 												resize();
 												setTimeout(function(){resize();},1000);
 												setTimeout(function(){resize();},2000);
 												setTimeout(function(){resize();},3000);
-												//delay resizing for img loading time
+												//delay resizing for img loading time //! three required??
 											}
 										}	
 									}
