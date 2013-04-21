@@ -66,7 +66,6 @@
 				});
 			}
 			function get_img(img){
-				console.log(desc);
 				var count=0;
 				var end = img.length;
 				for(var i=0;i<end;i++){
