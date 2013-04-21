@@ -14,9 +14,9 @@ And you don't have to set the option stage to any value.
 	ex.
 	$('#mydiv').mbi_gallery(//options);
 ###Special function###
-After the page is loaded, press 'Alt+F5' and a page of html code will be created in a new page.
-(That html can be used with this jquery plugin, and will just enable animate and resizing)
-(No ajax code if be executed with this usage)
+After the page is loaded, press 'Alt+F5' and a page of html code will be created in a new page.  
+(That html can be used with this jquery plugin, and will just enable animate and resizing)  
+(No ajax call in this usage)
 
 
 ## Options
