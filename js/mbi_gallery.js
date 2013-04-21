@@ -1,7 +1,7 @@
 /**
  * @summary     mbi-gallery
  * @description Gallery
- * @version     0.1.1
+ * @version     0.1.2
  * @file        jquery.mbi_gallery.js
  * @author      Tangent Chang and Tien-Hao Chang (Darby Chang)
  * @contact     darby@mail.ncku.edu.tw
@@ -15,77 +15,83 @@
 	$.fn[plugin]=function(opt){//set jquery plugin
 		var opt=$.extend({},$.fn[plugin].dft,opt);//option
 		return this.each(function(){
+			var desc={};//des hash
 			var $el=$(this);
 			//grab data and insert image
-			//!reduce indent
-			if(1===opt.stage||''===$el.html()){//first stage or empty $el do ajax
-				$.ajax({//get description //! why ajax()?
-					type:'GET',//!single or double quote?
-					url:opt.descriptionUrl,
-					success:function(desc){
-						var tmp=desc.match(/^([^#\n\r].*)/gm).map(function(i){return i.split(opt.separator)});
-						desc={};for(var i=0;i<tmp.length;++i)(desc[tmp[i][0]]=tmp[i]).splice(0,1);
-						$.get(opt.photoFolderUrl,function(img){//get img href //! why get()?
-							img=img.match(/href=".*?\.(jpg|png)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
-//							var $ul=$('<ul/>').appendTo($el);
-							$el.append('<ul></ul>');
-							var $ul=$el.find('ul');
-							var end=(-1===opt.numLoadingImg||img.length<opt.numLoadingImg)?img.length:opt.numLoadingImg;
-							end=2;
-							var count=0;
-							for(var i=0;i<end;i++){
-								$.ajax({//ajax loading img //! why ajax()?
-									type:'GET',
-									url:opt.photoFolderUrl+img[i],
-									success:function(data){
-										var fn=(this.url).match(/[^\/]+$/i)[0];//!better than comment
-										count++;
-										if(desc[fn]){//!hash instaead of array
-											//!why need a further if?
-											html='<li class="mbi_gallery_animateLi"><div class="mbi_gallery_imageDescription"><div class="mbi_gallery_des0">'+desc[fn][0]+'</div>';
-											if(desc[fn].length>1)for(var j=1;j<desc[fn].length;j++)html+='<div class="mbi_gallery_des'+j+'">'+desc[fn][j]+'</div>';
-											html+='</div><img class="mbi_gallery_moveInImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></li>';
-											$ul.append(html);
-										}else $ul.append('<li><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></li>');
-										if(opt.stage!=1&&count%20==0)resize();//! 20 should be a opt
-										if(count==end){
-											if(opt.stage==1)$el.prepend("<div id=\'mbi-export\'>export</div>");//!discuss
-											else{
-												resize();
-												setTimeout(function(){resize();},1000);
-												setTimeout(function(){resize();},2000);
-												setTimeout(function(){resize();},3000);
-												//delay resizing for img loading time //! three required??
-											}
-										}	
-									}
-								});
-							}
-						});
-					}
-				});
-				$el.on('click','#mbi-export',function(){//export html
-					uriContent = "data:text/plain,"+encodeURIComponent("<html>"+$('html').html())+"</html>";
-					newWindow=window.open(uriContent, 'neuesDokument');
-				});
+			if(''===$el.html()){//empty $el do ajax
+				$.get(//get description
+					opt.descriptionUrl,
+					function(des){//des output
+						var tmp=des.match(/^([^#\n\r].*)/gm).map(function(i){return i.split(opt.separator)});
+						for(var i=0;i<tmp.length;++i)(desc[tmp[i][0]]=tmp[i]).splice(0,1);
+						get_folder();
+					});
+					var isAlt = false;
+					$(document).keydown(function (e) {
+						if (e.keyCode == 18) {
+							isAlt = true;
+						}
+						if (e.keyCode == 116 && isAlt) {//alt+F5 to save html code
+							uriContent = "data:text/plain,"+encodeURIComponent("<html>"+$('html').html())+"</html>";
+							newWindow=window.open(uriContent, 'neuesDokument');
+						}
+					});
+					$(document).keyup(function (e) {
+						if (e.keyCode == 18) {
+							isAlt = false;
+						}
+					});
 			}
 			//animate process
-			if(opt.stage!=1){
-				$el.on('mouseenter','.mbi_gallery_animateLi',function(){
-					$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'0'},'fast');
+			$el.on('mouseenter','.mbi_gallery_animateLi',function(){
+				$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'0'},'fast');
+			});
+			$el.on('mouseleave','.mbi_gallery_animateLi',function(){
+				$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'.8'},'fast');
+			});
+			//resize event
+			$(window).resize(function(){
+				resize();
+			});
+			window.onload=resize();
+			$('img').load(function(){resize();});
+			setTimeout(function(){resize();},1000);
+			setTimeout(function(){resize();},2000);
+			setTimeout(function(){resize();},3000);
+			function get_folder(){
+				$.get(opt.photoFolderUrl,function(img){//get img href 
+					img=img.match(/href=".*?\.(jpg|png)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
+					$ul=$('<ul/>').appendTo($el);
+					get_img(img);
 				});
-				$el.on('mouseleave','.mbi_gallery_animateLi',function(){
-					$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'.8'},'fast');
-				});
-				//resize event
-				$(window).resize(function(){
-					resize();
-				});
-				window.onload=resize();
-				$('img').load(function(){resize();});
-				setTimeout(function(){resize();},1000);
-				setTimeout(function(){resize();},2000);
-				setTimeout(function(){resize();},3000);
+			}
+			function get_img(img){
+				console.log(desc);
+				var count=0;
+				var end = img.length;
+				for(var i=0;i<end;i++){
+					$.get(//ajax loading img
+						opt.photoFolderUrl+img[i],
+						function(data){
+							var fn=(this.url).match(/[^\/]+$/i)[0];
+							count++;
+							if(desc[fn]){
+								html='<li class="mbi_gallery_animateLi"><div class="mbi_gallery_imageDescription"><div class="mbi_gallery_des0">'+desc[fn][0]+'</div>';
+								if(desc[fn].length>1)for(var j=1;j<desc[fn].length;j++)html+='<div class="mbi_gallery_des'+j+'">'+desc[fn][j]+'</div>';
+								html+='</div><img class="mbi_gallery_moveInImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></li>';
+								$ul.append(html);
+							}else $ul.append('<li><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></li>');
+							if(count%opt.resizePeriod==0)resize();
+							if(count===end){
+								resize();
+								setTimeout(function(){resize();},1000);
+								setTimeout(function(){resize();},2000);
+								setTimeout(function(){resize();},3000);
+								//delay resizing for img loading time 
+							}	
+						}
+					);
+				}
 
 			}
 			//resize function
@@ -115,9 +121,8 @@
 		});//end of return this.each
 	};
 	$.fn[plugin].dft={
-		stage:2,
 		separator:'\t',
-		numLoadingImg:-1,
+		resizePeriod:20,
 		imgInitialHeight:300,	
 		animateSpeed:'fast'
 	};

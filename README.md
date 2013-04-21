@@ -13,44 +13,13 @@ Call the plugin with the target element you want to insert.
 And you don't have to set the option stage to any value.
 	ex.
 	$('#mydiv').mbi_gallery(//options);
+###Special function###
+After the page is loaded, press 'Alt+F5' and a page of html code will be created in a new page.
+(That html can be used with this jquery plugin, and will just enable animate and resizing)
+(No ajax code if be executed with this usage)
 
-###Special Usagei(Two stages)###
-####Stage 1:Generating html from img folder and description file####
-1.	Call the plugin with the target element you want to insert.
-
-		ex. 
-		$('#mydiv').mbi_gallery(//options);
-
-2.	Set the option "stage" to 1, and fill in other options. 
-
-		ex.   
-		$('#mydiv').mbi_gallery({  
-			stage:1,  
-			photoFolderUrl:"../demophotos/",  
-			descriptionUrl:"../des.txt",  
-			imgInitialHeight:"300"  
-		});  
-
-3.	Run the site, and after loading, there would be a 'export' on top of the target element.
-4.	Click the 'export', and it will have a new tag (or window) on the browser with some html code.
-5.	Download that file, and save it as html file
-
-####Stage 2:Operate(Animating and Resizing)####
-1.	Modify the downloaded html file(or other .js that call this plugin)'s option stage to 2
-
-		ex.  
-		$('#mydiv').mbi_gallery({  
-			stage:2,  
-			...//other options  
-		});  
-
-2.	Replace the original html file(in stage 1) with this one.
-3.	Complete!
 
 ## Options
-###stage###
-(Default:2)  
-Indicate the operation of this plugin. Take a look at Usage for more information.
 ###photoFolderUrl###
 The address of the folder containing the images been put in the div 
 ###descriptionUrl###
@@ -68,10 +37,9 @@ Description file Format
      mg1.JPG	SomeDescription 	AnotherDescription
      mg2.JPG	SomeDescription
 
-###numLoadingImg###
-(Default option:-1)  
-The number of images will be loaded into the element of the site
--1 means all image in the folder will be loaded
+###resizePeriod###
+(Default option:20)
+The number of img loaded between two resizing operations
 
 ###imgInitialHeight###
 (Default option:300)  
