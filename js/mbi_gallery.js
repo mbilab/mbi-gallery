@@ -1,7 +1,7 @@
 /**
  * @summary     mbi-gallery
  * @description Gallery
- * @version     0.1.2
+ * @version     0.1.3
  * @file        jquery.mbi_gallery.js
  * @author      Tangent Chang and Tien-Hao Chang (Darby Chang)
  * @contact     darby@mail.ncku.edu.tw
@@ -32,8 +32,7 @@
 							isAlt = true;
 						}
 						if (e.keyCode == 116 && isAlt) {//alt+F5 to save html code
-							uriContent = "data:text/plain,"+encodeURIComponent("<html>"+$('html').html())+"</html>";
-							newWindow=window.open(uriContent, 'neuesDokument');
+							downloadWithName("data:text/html,"+encodeURIComponent("<html>"+$('html').html()+"</html>"),"output.html");
 						}
 					});
 					$(document).keyup(function (e) {
@@ -61,11 +60,12 @@
 			function get_folder(){
 				$.get(opt.photoFolderUrl,function(img){//get img href 
 					img=img.match(/href=".*?\.(jpg|png)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
-					$ul=$('<ul/>').appendTo($el);
+					$ul=$('<ul/>').appendTo($el).addClass('mbi_gallery_outerUl');
 					get_img(img);
 				});
 			}
 			function get_img(img){
+				console.log(desc);
 				var count=0;
 				var end = img.length;
 				for(var i=0;i<end;i++){
@@ -75,11 +75,11 @@
 							var fn=(this.url).match(/[^\/]+$/i)[0];
 							count++;
 							if(desc[fn]){
-								html='<li class="mbi_gallery_animateLi"><div class="mbi_gallery_imageDescription"><div class="mbi_gallery_des0">'+desc[fn][0]+'</div>';
-								if(desc[fn].length>1)for(var j=1;j<desc[fn].length;j++)html+='<div class="mbi_gallery_des'+j+'">'+desc[fn][j]+'</div>';
-								html+='</div><img class="mbi_gallery_moveInImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></li>';
+								html='<li class="mbi_gallery_animateLi"><div class="mbi_gallery_imageDescription">';
+								if(desc[fn].length>0)for(var j=0;j<desc[fn].length;j++)html+='<div class="mbi_gallery_des'+j+'">'+desc[fn][j]+'</div>';
+								html+='</div><img class="mbi_gallery_animatedImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></li>';
 								$ul.append(html);
-							}else $ul.append('<li><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></li>');
+							}else $ul.append('<li class="mbi_gallery_noAnimate"><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></li>');
 							if(count%opt.resizePeriod==0)resize();
 							if(count===end){
 								resize();
@@ -100,13 +100,15 @@
 				var rowImageCount=0;
 				var front=0;
 				var divSize=$el.find("ul").width();
+				console.log(divSize);
 				var gap=$('ul li').outerWidth(true)-$('ul li').width();
+				console.log(gap);
 				$el.find("ul li").each(function(i){
 					rowWidth+=(($(this).width())*(opt.imgInitialHeight)/($(this).height()));
 					rowImageCount++;
 					if(rowWidth+(rowImageCount)*gap>=divSize){
 						resizeHeight=opt.imgInitialHeight*(divSize-((rowImageCount+1)*gap))/(rowWidth);
-						if(Math.abs(resizeHeight-$el.find("ul li:nth-child("+(front+1)+")").height())>2){
+					if(Math.abs(resizeHeight-$el.find("ul li:nth-child("+(front+1)+")").height())>0.1){
 							for(var j=front;j<=i;j++){
 								$el.find("ul li:nth-child("+(j+1)+") img").height(resizeHeight);
 							}
@@ -117,6 +119,21 @@
 					}
 				});
 			};
+			function downloadWithName(uri, name) {
+				function eventFire(el, etype){
+					if (el.fireEvent) {
+						(el.fireEvent('on' + etype));
+					} else {
+						var evObj = document.createEvent('Events');
+						evObj.initEvent(etype, true, false);
+						el.dispatchEvent(evObj);
+					}
+				}
+				var link = document.createElement("a");
+				link.download = name;
+				link.href = uri;
+				eventFire(link, "click");
+			}
 		});//end of return this.each
 	};
 	$.fn[plugin].dft={
