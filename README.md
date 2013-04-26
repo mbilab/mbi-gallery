@@ -55,13 +55,13 @@ Speed of the animate
 
 ### The structure of generated code
 ####Classes in the generated code  
- * ul.mbi_gallery_outerUl : `<ul>` that wraps the whole gallery
- * li.animatedLi : `<li>` that have hover animate
- * div.mbi_gallery_imageDescription : `<div>` containing all of the descriptions
- * div.mbi_gallery_desx : `<div>` of the x-th description(x start from zero)
- * img.mbi_gallery_animatedImage: `<img>` in li.animatedLi
- * li.mbi_gallery_noAnimate: `<li>` that do not have hover animate
-####Whole architecture of the generated code
+ul.mbi_gallery_outerUl : `<ul>` that wraps the whole gallery  
+li.animatedLi : `<li>` that have hover animate  
+div.mbi_gallery_imageDescription : `<div>` containing all of the descriptions  
+div.mbi_gallery_desx : `<div>` of the x-th description(x start from zero)  
+img.mbi_gallery_animatedImage: `<img>` in li.animatedLi  
+li.mbi_gallery_noAnimate: `<li>` that do not have hover animate  
+####Whole architecture of the generated code  
     <ul class="mbi_gallery_outerUl">
 	    <li class="mbi_gallery_animateLi">
 		    <div class="mbi_gallery_imageDescription">
