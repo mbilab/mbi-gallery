@@ -11,9 +11,9 @@ What this plugin can do is:
 ## Usage
 ###Normal Usage###
 Call the plugin with the target element you want to insert.
-	ex.
-	$('#mydiv').mbi_gallery(//options);
-Same default style is in 'css/mbi_gallery.css', which could makes the gallery works normally. 
+	ex. 
+	$('#mydiv').mbi_gallery(//options);  
+Same default style is in 'css/mbi_gallery.css', which could makes the gallery works normally.  
 Some settings, such as colors, fonts setting can be changed to fit your need.
 ###Special function(can be used only in Chrome for current version)###
 After the page is loaded, press 'Alt+F5' and a page of html code will be created in a new page.  
