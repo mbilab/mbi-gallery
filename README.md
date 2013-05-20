@@ -54,22 +54,22 @@ Larger height means less images per row
 Speed of the animate
 
 ###getOrigin###
-(Default:return preview) 
-A function to get the original size photo address, defined by user. 
-For example, if the original photo are at ~/raw and the preview photo share the same name with them, 
-the function could be set as 
-	getOrigin:function(preview){ 
-	        return "~/raw"+preview.match(/\/.[^\/]*?\.(jpg|png|gif)/gi);  
-	} 
-(preview.match(/\/.[^\/]*?\.(jpg|png|gif)/gi) could be seen as (/image_file_name) ex. /abc.jpg 
+(Default:return preview)  
+A function to get the original size photo address, defined by user.  
+For example, if the original photo are at ~/raw and the preview photo share the same name with them,  
+the function could be set as  
+	getOrigin:function(preview){  
+	        return "~/raw"+preview.match(/\/.[^\/]*?\.(jpg|png|gif)/gi);   
+	}  
+(preview.match(/\/.[^\/]*?\.(jpg|png|gif)/gi) could be seen as (/image_file_name) ex. /abc.jpg  
 ###afterGen
-A function to add more action after the code is generated, defined by user. 
-For example, if you want to use lightbox with this plugin, 
-the function could be: 
-    afterGen:function(){ 
-	    $('a').attr('rel','lightbox');     
-	} 
-(You need to include the required file for lightbox before this.) 
+A function to add more action after the code is generated, defined by user.  
+For example, if you want to use lightbox with this plugin,  
+the function could be:  
+    afterGen:function(){  
+	    $('a').attr('rel','lightbox');      
+	}  
+(You need to include the required file for lightbox before this.)  
 ### The structure of generated code
 ####Classes in the generated code  
 ul.mbi_gallery_outerUl : `<ul>` that wraps the whole gallery  
