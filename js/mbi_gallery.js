@@ -1,7 +1,7 @@
 /**
  * @summary     mbi-gallery
  * @description Gallery
- * @version     0.1.3
+ * @version     0.1.2
  * @file        jquery.mbi_gallery.js
  * @author      Tangent Chang and Tien-Hao Chang (Darby Chang)
  * @contact     darby@mail.ncku.edu.tw
@@ -33,6 +33,8 @@
 						}
 						if (e.keyCode == 116 && isAlt) {//alt+F5 to save html code
 							downloadWithName("data:text/html,"+encodeURIComponent("<html>"+$('html').html()+"</html>"),"output.html");
+							/*uriContent = "data:text/plain,"+encodeURIComponent("<html>"+$('html').html())+"</html>";
+							newWindow=window.open(uriContent, 'neuesDokument');*/
 						}
 					});
 					$(document).keyup(function (e) {
@@ -59,15 +61,14 @@
 			setTimeout(function(){resize();},3000);
 			function get_folder(){
 				$.get(opt.photoFolderUrl,function(img){//get img href 
-					img=img.match(/href=".*?\.(jpg|png)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
+					img=img.match(/href=".*?\.(jpg|png|gif)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
 					$ul=$('<ul/>').appendTo($el).addClass('mbi_gallery_outerUl');
 					get_img(img);
 				});
 			}
 			function get_img(img){
-				console.log(desc);
 				var count=0;
-				var end=img.length;
+				var end = img.length;
 				for(var i=0;i<end;i++){
 					$.get(//ajax loading img
 						opt.photoFolderUrl+img[i],
@@ -77,11 +78,12 @@
 							if(desc[fn]){
 								html='<li class="mbi_gallery_animateLi"><div class="mbi_gallery_imageDescription">';
 								if(desc[fn].length>0)for(var j=0;j<desc[fn].length;j++)html+='<div class="mbi_gallery_des'+j+'">'+desc[fn][j]+'</div>';
-								html+='</div><img class="mbi_gallery_animatedImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></li>';
+								html+='</div><a href="'+opt.getOrigin(this.url)+'"><img class="mbi_gallery_moveInImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></a></li>';
 								$ul.append(html);
-							}else $ul.append('<li class="mbi_gallery_noAnimate"><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></li>');
+							}else $ul.append('<li class="mbi_gallery_noAnimate"><a href="'+opt.getOrigin(this.url)+'"><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></a></li>');
 							if(count%opt.resizePeriod==0)resize();
 							if(count===end){
+								opt.afterGen();
 								resize();
 								setTimeout(function(){resize();},1000);
 								setTimeout(function(){resize();},2000);
@@ -96,19 +98,16 @@
 			//resize function
 			function resize(){
 				var rowWidth=0;
-				var resizeRatio;
 				var rowImageCount=0;
 				var front=0;
 				var divSize=$el.find("ul").width();
-				console.log(divSize);
 				var gap=$('ul li').outerWidth(true)-$('ul li').width();
-				console.log(gap);
 				$el.find("ul li").each(function(i){
 					rowWidth+=(($(this).width())*(opt.imgInitialHeight)/($(this).height()));
 					rowImageCount++;
 					if(rowWidth+(rowImageCount)*gap>=divSize){
-						resizeHeight=Math.floor(opt.imgInitialHeight*(divSize-((rowImageCount)*gap))/(rowWidth))*0.98;
-					if(Math.abs(resizeHeight-$el.find("ul li:nth-child("+(front+1)+")").height())>0){
+						resizeHeight=Math.floor(opt.imgInitialHeight*(divSize-((rowImageCount+1)*gap))/(rowWidth));
+						if(Math.abs(resizeHeight-$el.find("ul li:nth-child("+(front+1)+")").height())>0){
 							for(var j=front;j<=i;j++){
 								$el.find("ul li:nth-child("+(j+1)+") img").height(resizeHeight);
 							}
@@ -140,7 +139,10 @@
 		separator:'\t',
 		resizePeriod:20,
 		imgInitialHeight:300,	
-		animateSpeed:'fast'
+		animateSpeed:'fast',
+		getOrigin:function(preview){
+			return preview;
+		}
 	};
 })(jQuery);
 // vi:nowrap:sw=4:ts=4
