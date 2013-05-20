@@ -22,10 +22,16 @@ After the page is loaded, press 'Alt+F5' and a page of html code will be created
 
 
 ## Options
-###photoFolderUrl###
-The address of the folder containing the images been put in the div 
+###rawFolderUrl###
+The address of the folder containing the raw images
+
+###previewFolderUrl###
+(Default:equals to 'rawFolderUrl')
+The address of the folder containing the preview images inserted in the div
+
 ###descriptionUrl###
-The address of the txt file that contains the image and its description
+The address of the txt file that contains the image name and its description
+
 ###separator###
 (Default:'\t')[Tab]  
 The symbol used to separate the file name and the description or two descriptions
@@ -41,45 +47,36 @@ Description file Format
 
 ###resizePeriod###
 (Default option:20) 
-The number of img loaded between two resizing operations
+The number of images loaded between two resizing operations
 
 ###imgInitialHeight###
 (Default option:300)  
 (Unit:px)  
-The initial height of the image before resize
+The initial height of the images before resize
 Larger height means less images per row
 
 ###animateSpeed###
 (Default option:'fast')  
 Speed of the animate
 
-###getOrigin###
-(Default:return preview)  
-A function to get the original size photo address, defined by user.  
-For example, if the original photo are at ~/raw and the preview photo share the same name with them,  
-the function could be set as  
-
-	getOrigin:function(preview){  
-	        return "~/raw"+preview.match(/\/.[^\/]*?\.(jpg|png|gif)/gi);   
-	}  
-
-(preview.match(/\/.[^\/]*?\.(jpg|png|gif)/gi) could be seen as (/image_file_name) ex. /abc.jpg  
-###afterGen
+###onDone
 A function to add more action after the code is generated, defined by user.  
 For example, if you want to use lightbox with this plugin,  
 the function could be:  
 
-    afterGen:function(){  
+    onDone:function(){  
 	    $('a').attr('rel','lightbox');      
 	}  
 
-(You need to include the required file for lightbox before this.)  
+(You need to include the required file before this.)  
 ### The structure of generated code
 ####Classes in the generated code  
 ul.mbi_gallery_outerUl : `<ul>` that wraps the whole gallery  
 li.animatedLi : `<li>` that have hover animate  
 div.mbi_gallery_imageDescription : `<div>` containing all of the descriptions  
 div.mbi_gallery_desx : `<div>` of the x-th description(x start from zero)  
+a:`<a>` that wrap the img, designed for working with lightbox easily  
+¡@¡@Its href would be the address of the raw version of corresponding image
 img.mbi_gallery_animatedImage: `<img>` in li.animatedLi  
 li.mbi_gallery_noAnimate: `<li>` that do not have hover animate  
 ####Whole architecture of the generated code  
@@ -91,7 +88,9 @@ li.mbi_gallery_noAnimate: `<li>` that do not have hover animate
 			     <div class="mbi_gallery_des2"></div>
 				 ...//depends on how many description of the image in the description file 
 			</div>
-			<img class="mbi_gallery_animatedImage"/>
+			<a>
+				<img class="mbi_gallery_animatedImage"/>
+			</a>
 		</li>
 		<li class="mbi_gallery_noAnimate">
 		    <img>

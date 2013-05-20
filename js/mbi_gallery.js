@@ -1,7 +1,7 @@
 /**
  * @summary     mbi-gallery
  * @description Gallery
- * @version     0.1.3
+ * @version     0.1.4
  * @file        jquery.mbi_gallery.js
  * @author      Tangent Chang and Tien-Hao Chang (Darby Chang)
  * @contact     darby@mail.ncku.edu.tw
@@ -17,6 +17,7 @@
 		return this.each(function(){
 			var desc={};//des hash
 			var $el=$(this);
+			if(!opt.previewFolderUrl)opt.previewFolderUrl=opt.rawFolderUrl
 			//grab data and insert image
 			if(''===$el.html()){//empty $el do ajax
 				$.get(//get description
@@ -60,8 +61,8 @@
 			setTimeout(function(){resize();},2000);
 			setTimeout(function(){resize();},3000);
 			function get_folder(){
-				$.get(opt.photoFolderUrl,function(img){//get img href 
-					img=img.match(/href=".*?\.(jpg|png|gif)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
+				$.get(opt.previewFolderUrl,function(img){//get img href 
+					img=img.match(/href=".*?\.(jpg|png)(?=")/gi).map(function(i){return i.replace(/^href="/,'')});
 					$ul=$('<ul/>').appendTo($el).addClass('mbi_gallery_outerUl');
 					get_img(img);
 				});
@@ -71,19 +72,19 @@
 				var end = img.length;
 				for(var i=0;i<end;i++){
 					$.get(//ajax loading img
-						opt.photoFolderUrl+img[i],
+						opt.previewFolderUrl+img[i],
 						function(data){
 							var fn=(this.url).match(/[^\/]+$/i)[0];
 							count++;
 							if(desc[fn]){
 								html='<li class="mbi_gallery_animateLi"><div class="mbi_gallery_imageDescription">';
 								if(desc[fn].length>0)for(var j=0;j<desc[fn].length;j++)html+='<div class="mbi_gallery_des'+j+'">'+desc[fn][j]+'</div>';
-								html+='</div><a href="'+opt.getOrigin(this.url)+'"><img class="mbi_gallery_moveInImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></a></li>';
+								html+='</div><a href="'+opt.rawFolderUrl+fn+'"><img class="mbi_gallery_moveInImage" src="'+this.url+'" style="height:'+opt.imgInitialHeight+'px" /></a></li>';
 								$ul.append(html);
-							}else $ul.append('<li class="mbi_gallery_noAnimate"><a href="'+opt.getOrigin(this.url)+'"><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></a></li>');
-							if(count%opt.resizePeriod==0)resize();
+							}else $ul.append('<li class="mbi_gallery_noAnimate"><a href="'+opt.rawFolderUrl+fn+'"><img src="'+this.url+'"/ style="height:"'+opt.imgInitialHeight+'"px"></a></li>');
+							if(0==count%opt.resizePeriod)resize();
 							if(count===end){
-								opt.afterGen();
+							    if(opt.onDone)opt.onDone();
 								resize();
 								setTimeout(function(){resize();},1000);
 								setTimeout(function(){resize();},2000);
@@ -139,10 +140,7 @@
 		separator:'\t',
 		resizePeriod:20,
 		imgInitialHeight:300,	
-		animateSpeed:'fast',
-		getOrigin:function(preview){
-			return preview;
-		}
+		animateSpeed:'fast'
 	};
 })(jQuery);
 // vi:nowrap:sw=4:ts=4
