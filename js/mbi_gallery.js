@@ -46,10 +46,10 @@
 			}
 			//animate process
 			$el.on('mouseenter','.mbi_gallery_animateLi',function(){
-				$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'0'},'fast');
+				$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'0'},'fast',function(){$(this).css('display','none');});
 			});
 			$el.on('mouseleave','.mbi_gallery_animateLi',function(){
-				$(this).children('.mbi_gallery_imageDescription').stop().animate({opacity:'.8'},'fast');
+				$(this).children('.mbi_gallery_imageDescription').css('display','block').stop().animate({opacity:'.8'},'fast');
 			});
 			//resize event
 			$(window).resize(function(){
