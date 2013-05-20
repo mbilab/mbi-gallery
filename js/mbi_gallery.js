@@ -1,7 +1,7 @@
 /**
  * @summary     mbi-gallery
  * @description Gallery
- * @version     0.1.4
+ * @version     0.1.5
  * @file        jquery.mbi_gallery.js
  * @author      Tangent Chang and Tien-Hao Chang (Darby Chang)
  * @contact     darby@mail.ncku.edu.tw
@@ -101,7 +101,7 @@
 				var rowWidth=0;
 				var rowImageCount=0;
 				var front=0;
-				var divSize=$el.find("ul").width();
+				var divSize=$el.find("ul").width()*0.98;
 				var gap=$('ul li').outerWidth(true)-$('ul li').width();
 				$el.find("ul li").each(function(i){
 					rowWidth+=(($(this).width())*(opt.imgInitialHeight)/($(this).height()));
