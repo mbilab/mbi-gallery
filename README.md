@@ -75,8 +75,7 @@ ul.mbi_gallery_outerUl : `<ul>` that wraps the whole gallery
 li.animatedLi : `<li>` that have hover animate  
 div.mbi_gallery_imageDescription : `<div>` containing all of the descriptions  
 div.mbi_gallery_desx : `<div>` of the x-th description(x start from zero)  
-a:`<a>` that wrap the img, designed for working with lightbox easily  
-¡@¡@Its href would be the address of the raw version of corresponding image
+a:`<a>` that wrap the img, designed for working with lightbox easily. It would link to the raw version of corresponding image
 img.mbi_gallery_animatedImage: `<img>` in li.animatedLi  
 li.mbi_gallery_noAnimate: `<li>` that do not have hover animate  
 ####Whole architecture of the generated code  
