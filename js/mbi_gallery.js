@@ -1,7 +1,7 @@
 /**
  * @summary     mbi-gallery
  * @description Gallery
- * @version     0.1.2
+ * @version     0.1.3
  * @file        jquery.mbi_gallery.js
  * @author      Tangent Chang and Tien-Hao Chang (Darby Chang)
  * @contact     darby@mail.ncku.edu.tw
