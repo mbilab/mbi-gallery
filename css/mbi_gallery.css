@@ -1,4 +1,4 @@
-.mbi_gallery_outerUl { list-style: none; padding: 0; width: 100%; }
+.mbi_gallery_outerUl { list-style: none; padding: 0;margin:0; width: 100%; }
 	.mbi_gallery_outerUl li { display: block; float: left; margin: 0 5px 5px 0; }
 		.mbi_gallery_outerUl li img { height: inherit; }
 .mbi_gallery_animateLi { position: relative; }
