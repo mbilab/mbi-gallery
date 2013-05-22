@@ -61,7 +61,7 @@ Speed of the animate
 
 ###onDone
 A function to add more action after the code is generated, defined by user.  
-For example, if you want to use lightbox with this plugin,  
+For example, if you want to add [this lightbox plugin](http://lokeshdhakar.com/projects/lightbox2/),  
 the function could be:  
 
     onDone:function(){  
