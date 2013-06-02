@@ -8,6 +8,9 @@ What this plugin can do is:
  * Enable simple animation with image descriptions from the given txt file
  * (Chrome only)The generated html code can be downloaded with Alt+F5
 
+## [Demo Page](http://merry.ee.ncku.edu.tw/~lukezeng/darby/photo.html)
+Note that the function of lightbox in this page isn't provided by this plugin. 
+
 ## Usage
 ###Normal Usage###
 Call the plugin with the target element you want to insert.  
