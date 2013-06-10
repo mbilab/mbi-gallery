@@ -9,7 +9,7 @@ What this plugin can do is:
  * (Chrome only)The generated html code can be downloaded with Alt+F5
 
 ## Demo Page
-http://zoro.ee.ncku.edu.tw/wp2012/final/photo.html
+http://zoro.ee.ncku.edu.tw/wp2012/final/photo.html  
 Note that the function of lightbox in this page isn't provided by this plugin. 
 
 ## Usage
