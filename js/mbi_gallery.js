@@ -107,7 +107,7 @@
 					rowWidth+=(($(this).width())*(opt.imgInitialHeight)/($(this).height()));
 					rowImageCount++;
 					if(rowWidth+(rowImageCount)*gap>=divSize){
-						resizeHeight=Math.floor(opt.imgInitialHeight*(divSize-((rowImageCount+1)*gap))/(rowWidth));
+						resizeHeight=Math.floor(opt.imgInitialHeight*(divSize-((rowImageCount+1)*gap))/(rowWidth))*0.97;
 						if(Math.abs(resizeHeight-$el.find("ul li:nth-child("+(front+1)+")").height())>0){
 							for(var j=front;j<=i;j++){
 								$el.find("ul li:nth-child("+(j+1)+") .mbi_gallery_imageDescription").height(resizeHeight);
