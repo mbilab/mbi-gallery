@@ -1,4 +1,4 @@
-# MBI-Gallery jquery Plugin
+# MBI-Gallery jQuery Plugin
 ## Features
 
 What this plugin can do is:
